@@ -1,43 +1,43 @@
-import { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
-import firebase from "./services/firebase";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import { InputAdornment, IconButton } from "@material-ui/core";
+import { useEffect, useState } from "react"
+import Button from "@material-ui/core/Button"
+import firebase from "./services/firebase"
+import Table from "@material-ui/core/Table"
+import TableBody from "@material-ui/core/TableBody"
+import TableCell from "@material-ui/core/TableCell"
+import TableContainer from "@material-ui/core/TableContainer"
+import TableHead from "@material-ui/core/TableHead"
+import TableRow from "@material-ui/core/TableRow"
+import { withStyles, makeStyles } from "@material-ui/core/styles"
+import Paper from "@material-ui/core/Paper"
+import TextField from "@material-ui/core/TextField"
+import { InputAdornment, IconButton } from "@material-ui/core"
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "100%"
   },
   container: {
-    maxHeight: window.innerHeight - 220,
-  },
-});
+    maxHeight: window.innerHeight - 220
+  }
+})
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(even)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
+      backgroundColor: theme.palette.action.hover
+    }
+  }
+}))(TableRow)
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+    fontSize: 14
+  }
+}))(TableCell)
 
 function App() {
   const classes = useStyles()
@@ -86,8 +86,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="py-3 text-center">Dashboard</h1>
       <center>
+        <h1 style={{margin: '20px 0 10px'}}>Dashboard</h1>
         <div style={{ margin: "20px 0 50px 0", width: "85%" }}>
           <TextField
             size="small"
@@ -121,7 +121,7 @@ function App() {
         </div>
         <Paper style={{ width: "85%" }}>
           <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
+            <Table style={{display: records.length > 0 ? "table" : 'none'}} stickyHeader aria-label="sticky table">
               <TableHead>
                 <StyledTableRow>
                   <StyledTableCell>S.No.</StyledTableCell>
@@ -129,15 +129,15 @@ function App() {
                   <StyledTableCell align="right">Email</StyledTableCell>
                   <StyledTableCell align="right">Product ID</StyledTableCell>
                   <StyledTableCell align="right">
-                    Approval Status
+                    Status
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    Update Approval
+                    Update Status
                   </StyledTableCell>
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {getTableRecords().map((row, i) => (
+                {getTableRecords().length > 0 ? getTableRecords().map((row, i) => (
                   <StyledTableRow key={i}>
                     <StyledTableCell component="th" scope="row">
                       {i + 1}
@@ -162,14 +162,19 @@ function App() {
                       </Button>
                     </StyledTableCell>
                   </StyledTableRow>
-                ))}
+                )) : 
+                <StyledTableRow>
+                  <div style={{padding: '20px'}}>
+                    No Matching Records Found
+                  </div>
+                </StyledTableRow>}
               </TableBody>
             </Table>
           </TableContainer>
         </Paper>
       </center>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
